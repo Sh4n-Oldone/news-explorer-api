@@ -1,0 +1,19 @@
+{
+  "name": "news-explorer-api",
+  "version": "1.0.0",
+  "description": "Yandex Praktikum diploma project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sh4n-Oldone/news-explorer-api.git"
+  },
+  "author": "Pavlov Alex",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sh4n-Oldone/news-explorer-api/issues"
+  },
+  "homepage": "https://github.com/Sh4n-Oldone/news-explorer-api#readme"
+}
