@@ -1,6 +1,6 @@
 # news-explorer-api
 
-* [Ссылка на api](http://alexpavlov.students.nomoreparties.space)
+* [Ссылка на api](https://api.alexpavlov.students.nomoreparties.space)
 
 ## Директории
 
@@ -15,21 +15,20 @@
 
 ## Работа с API
 
-# создаёт пользователя с переданными в теле email, password и name
-POST /signup
+* создаёт пользователя с переданными в теле email, password и name
+> POST /signup
 
-# проверяет переданные в теле почту и пароль и возвращает JWT
-POST /signin 
+* проверяет переданные в теле почту и пароль и возвращает JWT
+> POST /signin 
 
-# возвращает информацию о пользователе (email и имя)
-GET /users/me
+* возвращает информацию о пользователе (email и имя)
+> GET /users/me
 
-# возвращает все сохранённые пользователем статьи
-GET /articles
+* возвращает все сохранённые пользователем статьи
+> GET /articles
 
-# создаёт статью с переданными в теле
-# keyword, title, text, date, source, link и image
-POST /articles
+* создаёт статью с переданными в теле keyword, title, text, date, source, link и image
+> POST /articles
 
-# удаляет сохранённую статью по _id
-DELETE /articles/articleId 
+* удаляет сохранённую статью по _id
+> DELETE /articles/articleId 
