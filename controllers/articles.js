@@ -31,10 +31,10 @@ module.exports.removeArticles = (req, res, next) => {
   Article.findOne({ _id: chosenArticle }).select('+owner')
     .then((article) => {
       if (article) {
-        if (article.owner.toString() === req.user._id) {
-          return Article.deleteOne({ _id: chosenArticle }).then(() => res.send({ message: 'Статья удалена' }));
+        if (article.owner.toString() !== req.user._id) {
+          throw new ForbiddenError('Ошибка авторизации');
         }
-        throw new ForbiddenError('Ошибка авторизации');
+        return Article.deleteOne({ _id: chosenArticle }).then(() => res.send({ message: 'Статья удалена' }));
       }
       throw new NotFoundError('Статья не найдена');
     })
