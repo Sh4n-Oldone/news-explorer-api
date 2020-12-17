@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const express = require('express');
+const helmet = require('helmet');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const { errors, celebrate, Joi } = require('celebrate');
@@ -10,11 +11,16 @@ const routes = require('./routes/index.js');
 const { login, createUser } = require('./controllers/users');
 const { requestLogger } = require('./middlewares/logger.js');
 const auth = require('./middlewares/auth.js');
+const globalErrorsCatch = require('./middlewares/globalErrorsCatch.js');
+const limiter = require('./middlewares/limiter.js');
 
 const app = express();
 const { PORT = 3000 } = process.env;
+const { MONGO_LINK = 'localhost:27017/newsdb' } = process.env;
 
-mongoose.connect('mongodb://localhost:27017/newsdb', {
+app.use(helmet());
+
+mongoose.connect(`mongodb://${MONGO_LINK}`, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
@@ -41,9 +47,11 @@ app.post('/signup', celebrate({
   }),
 }), createUser);
 
-app.use(auth);
-
 app.use(requestLogger);
+
+app.use(limiter);
+
+app.use(auth);
 
 app.use(routes);
 
@@ -51,14 +59,7 @@ app.use(errorLogger);
 
 app.use(errors());
 
-// eslint-disable-next-line no-unused-vars
-app.use((err, req, res, next) => {
-  const { statusCode = 500, message } = err;
-
-  res
-    .status(statusCode)
-    .send({ message: statusCode === 500 ? 'На сервере произошла ошибка' : message });
-});
+app.use(globalErrorsCatch);
 
 app.listen(PORT, () => {
   // eslint-disable-next-line no-console

@@ -8,7 +8,7 @@ module.exports.getArticles = (req, res, next) => {
       if (!article) {
         throw new NotFoundError('Статьи отсутствуют');
       }
-      return res.status(200).send(article);
+      return res.send(article);
     })
     .catch(next);
 };
@@ -22,7 +22,7 @@ module.exports.createArticles = (req, res, next) => {
   Article.create({
     keyword, title, text, date, source, link, image, owner,
   })
-    .then((article) => res.status(200).send(article))
+    .then((article) => res.send(article))
     .catch(next);
 };
 
@@ -31,9 +31,8 @@ module.exports.removeArticles = (req, res, next) => {
   Article.findOne({ _id: chosenArticle }).select('+owner')
     .then((article) => {
       if (article) {
-        // eslint-disable-next-line eqeqeq
-        if (article.owner == req.user._id) {
-          return Article.deleteOne({ _id: chosenArticle }).then(() => res.status(200).send({ message: 'Статья удалена' }));
+        if (article.owner.toString() === req.user._id) {
+          return Article.deleteOne({ _id: chosenArticle }).then(() => res.send({ message: 'Статья удалена' }));
         }
         throw new NotAuthorizeError('Ошибка авторизации');
       }
