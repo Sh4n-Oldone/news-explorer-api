@@ -1,6 +1,6 @@
 const Article = require('../models/article');
 const NotFoundError = require('../errors/notFoundError');
-const NotAuthorizeError = require('../errors/notAuthorizeError');
+const ForbiddenError = require('../errors/forbiddenError');
 
 module.exports.getArticles = (req, res, next) => {
   Article.find({}).sort({ createAt: -1 })
@@ -34,7 +34,7 @@ module.exports.removeArticles = (req, res, next) => {
         if (article.owner.toString() === req.user._id) {
           return Article.deleteOne({ _id: chosenArticle }).then(() => res.send({ message: 'Статья удалена' }));
         }
-        throw new NotAuthorizeError('Ошибка авторизации');
+        throw new ForbiddenError('Ошибка авторизации');
       }
       throw new NotFoundError('Статья не найдена');
     })
