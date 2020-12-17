@@ -1,6 +1,6 @@
 # news-explorer-api
 
-* [Ссылка на api](https://api.alexpavlov.students.nomoreparties.space)
+* [Ссылка на api](https://api.alpavlov.students.nomoreparties.space)
 
 ## Директории
 
