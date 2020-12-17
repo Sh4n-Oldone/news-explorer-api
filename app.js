@@ -16,11 +16,11 @@ const limiter = require('./middlewares/limiter.js');
 
 const app = express();
 const { PORT = 3000 } = process.env;
-const { MONGO_LINK = 'localhost:27017/newsdb' } = process.env;
+const { NODE_ENV, MONGO_LINK } = process.env;
 
 app.use(helmet());
 
-mongoose.connect(`mongodb://${MONGO_LINK}`, {
+mongoose.connect(`mongodb://${NODE_ENV === 'production' ? MONGO_LINK : 'localhost:27017/newsdb'}`, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
