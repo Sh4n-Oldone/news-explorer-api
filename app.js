@@ -34,7 +34,7 @@ app.use(cors({
   origin: '*',
   methods: 'GET, POST, DELETE',
 }));
-app.options('*', cors());
+// app.options('*', cors());
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
