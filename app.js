@@ -31,10 +31,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(cors({
-  origin: '*',
+  origin: 'http://localhost:3000/',
   methods: 'GET, POST, DELETE',
 }));
-// app.options('*', cors());
+app.options('*', cors());
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
