@@ -30,7 +30,7 @@ mongoose.connect(`mongodb://${NODE_ENV === 'production' ? MONGO_LINK : 'localhos
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(cors());
+app.use(cors({ origin: true }));
 app.options('*', cors());
 
 app.post('/signin', celebrate({
