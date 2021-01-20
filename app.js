@@ -31,6 +31,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use('*', cors({ origin: '*' }));
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Alow-Origin', '*');
+  res.setHeader('Access-Control-Alow-Methods', '*');
+  res.setHeader('Access-Control-Alow-Headers', '*');
+  next();
+});
 app.options('*', cors());
 
 app.post('/signin', celebrate({
