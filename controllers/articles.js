@@ -3,7 +3,7 @@ const NotFoundError = require('../errors/notFoundError');
 const ForbiddenError = require('../errors/forbiddenError');
 
 module.exports.getArticles = (req, res, next) => {
-  Article.find({}).sort({ createAt: -1 })
+  Article.find({ owner: req.user._id }).sort({ createAt: -1 })
     .then((article) => {
       if (!article) {
         throw new NotFoundError('Статьи отсутствуют');
